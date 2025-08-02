@@ -2,14 +2,28 @@
 Simple app that lets you have a verbal conversation with OpenAi's GPT 4o. **NOW WITH DISCORD VOICE CHANNEL SUPPORT!**
 Written by DougDoug. Feel free to use this for whatever you want! Credit is appreciated but not required.
 
+**✨ NEW: Now uses completely FREE speech recognition!** No more Azure API costs - the app now uses OpenAI Whisper for local, offline speech-to-text processing.
+
 If you would like a crappy video explanation of this project, I made a video covering the basics here: https://www.youtube.com/watch?v=vYE1rkIMj9w
 
 ## SETUP:
 1) This was written in Python 3.9.2. Install page here: https://www.python.org/downloads/release/python-392/
 
-2) Run `pip install -r requirements.txt` to install all modules.
+2) **Install system dependencies:**
+   - **Linux/Ubuntu:** `sudo apt-get install portaudio19-dev espeak espeak-data ffmpeg`
+   - **Windows:** Install FFmpeg from https://ffmpeg.org/download.html and add to PATH
+   - **macOS:** `brew install portaudio espeak ffmpeg`
 
-3) This uses the Microsoft Azure Speech-to-Text and OpenAI services for conversation, and uses the free ESpeak TTS engine for voice synthesis. You'll need to set up accounts with Microsoft Azure and OpenAI and generate API keys from them. Then add these keys as environment variables named AZURE_TTS_KEY, AZURE_TTS_REGION, and OPENAI_API_KEY respectively. ESpeak will be installed automatically as part of the setup.
+3) Run `pip install -r requirements.txt` to install all Python modules.
+
+4) This uses OpenAI Whisper for free local speech-to-text recognition and OpenAI's API for conversation, and uses the free ESpeak TTS engine for voice synthesis. You'll need to set up an account with OpenAI and generate an API key. Then add this key as an environment variable named OPENAI_API_KEY. 
+
+   **🎉 Benefits of the new setup:**
+   - ✅ **Completely FREE speech recognition** - No more Azure API costs!
+   - ✅ **Works offline** - Speech recognition runs locally on your machine
+   - ✅ **High accuracy** - Whisper often outperforms cloud APIs
+   - ✅ **Privacy friendly** - Your voice never leaves your computer
+   - ✅ **No token limits** - Use as much as you want!
 
 4) This app uses the GPT-4o model from OpenAi. As of this writing (Sep 3rd 2024), you need to pay $5 to OpenAi in order to get access to the GPT-4o model API. So after setting up your account with OpenAi, you will need to pay for at least $5 in credits so that your account is given the permission to use the GPT-4o model when running my app. See here: https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4-gpt-4-turbo-gpt-4o-and-gpt-4o-mini
 
@@ -23,9 +37,9 @@ If you would like a crappy video explanation of this project, I made a video cov
 
 1) Run `chatgpt_character.py'
 
-2) Once it's running, press F4 to start the conversation, and Azure Speech-to-text will listen to your microphone and transcribe it into text.
+2) Once it's running, press F4 to start the conversation, and Whisper will listen to your microphone and transcribe it into text locally on your machine.
 
-3) Once you're done talking, press P. Then the code will send all of the recorded text to the Ai. Note that you should wait a second or two after you're done talking before pressing P so that Azure has enough time to process all of the audio.
+3) Once you're done talking, press P. Then the code will send all of the recorded text to the AI. Note that you should wait a second or two after you're done talking before pressing P so that Whisper has enough time to process all of the audio.
 
 4) Wait a few seconds for OpenAI to generate a response and for ESpeak to convert that response into audio. Once it's done playing the response, you can press F4 to start the loop again and continue the conversation.
 

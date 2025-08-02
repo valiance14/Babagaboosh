@@ -5,7 +5,7 @@ import os
 import tempfile
 import wave
 from rich import print
-from azure_speech_to_text import SpeechToTextManager
+from whisper_speech_to_text import SpeechToTextManager
 from openai_chat import OpenAiManager
 from espeak_tts import EspeakTTSManager
 from obs_websockets import OBSWebsocketsManager
@@ -222,8 +222,8 @@ if __name__ == '__main__':
             print("[yellow]export DISCORD_BOT_TOKEN='your_bot_token_here'[/yellow]")
             exit(1)
         
-        # Check other required API keys (removed ELEVENLABS_API_KEY)
-        required_vars = ['AZURE_TTS_KEY', 'AZURE_TTS_REGION', 'OPENAI_API_KEY']
+        # Check other required API keys (removed ELEVENLABS_API_KEY and Azure keys)
+        required_vars = ['OPENAI_API_KEY']
         missing_vars = [var for var in required_vars if not os.getenv(var)]
         
         if missing_vars:

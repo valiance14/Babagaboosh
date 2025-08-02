@@ -6,7 +6,7 @@ import io
 import wave
 import audioop
 from rich import print
-from azure_speech_to_text import SpeechToTextManager
+from whisper_speech_to_text import SpeechToTextManager
 from openai_chat import OpenAiManager
 from espeak_tts import EspeakTTSManager
 from obs_websockets import OBSWebsocketsManager
