@@ -8,7 +8,7 @@ import audioop
 from rich import print
 from azure_speech_to_text import SpeechToTextManager
 from openai_chat import OpenAiManager
-from eleven_labs import ElevenLabsManager
+from espeak_tts import EspeakTTSManager
 from obs_websockets import OBSWebsocketsManager
 
 class DiscordBotManager:
@@ -16,7 +16,7 @@ class DiscordBotManager:
         self.bot = None
         self.speechtotext_manager = SpeechToTextManager()
         self.openai_manager = OpenAiManager()
-        self.elevenlabs_manager = ElevenLabsManager()
+        self.tts_manager = EspeakTTSManager()
         self.obswebsockets_manager = OBSWebsocketsManager()
         self.is_listening = False
         self.audio_buffer = []
@@ -146,7 +146,7 @@ Okay, let the conversation begin!'''}
                 ai_response = self.openai_manager.chat_with_history(text_result)
                 
                 # Convert response to audio
-                audio_file = self.elevenlabs_manager.text_to_audio(ai_response, "Pointboat", True)
+                audio_file = self.tts_manager.text_to_audio(ai_response, "default", True)
                 
                 # Enable OBS visualization
                 try:
