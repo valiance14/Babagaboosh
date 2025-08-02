@@ -7,16 +7,16 @@ import wave
 from rich import print
 from azure_speech_to_text import SpeechToTextManager
 from openai_chat import OpenAiManager
-from eleven_labs import ElevenLabsManager
+from espeak_tts import EspeakTTSManager
 from obs_websockets import OBSWebsocketsManager
 
-ELEVENLABS_VOICE = "Pointboat"  # Replace this with the name of whatever voice you have created on Elevenlabs
+ESPEAK_VOICE = "default"  # Using default espeak voice
 BACKUP_FILE = "ChatHistoryBackup.txt"
 
 class PajamaSamBot:
     def __init__(self):
         # Initialize managers
-        self.elevenlabs_manager = ElevenLabsManager()
+        self.tts_manager = EspeakTTSManager()
         self.obswebsockets_manager = OBSWebsocketsManager()
         self.speechtotext_manager = SpeechToTextManager()
         self.openai_manager = OpenAiManager()
@@ -177,7 +177,7 @@ Ready to talk? Start speaking now! 🎭
                 pass  # OBS might not be running
             
             # Generate audio file
-            audio_file = self.elevenlabs_manager.text_to_audio(text, ELEVENLABS_VOICE, True)
+            audio_file = self.tts_manager.text_to_audio(text, ESPEAK_VOICE, True)
             
             # Play in Discord voice channel
             if voice_client and not voice_client.is_playing():
@@ -222,8 +222,8 @@ if __name__ == '__main__':
             print("[yellow]export DISCORD_BOT_TOKEN='your_bot_token_here'[/yellow]")
             exit(1)
         
-        # Check other required API keys
-        required_vars = ['AZURE_TTS_KEY', 'AZURE_TTS_REGION', 'ELEVENLABS_API_KEY', 'OPENAI_API_KEY']
+        # Check other required API keys (removed ELEVENLABS_API_KEY)
+        required_vars = ['AZURE_TTS_KEY', 'AZURE_TTS_REGION', 'OPENAI_API_KEY']
         missing_vars = [var for var in required_vars if not os.getenv(var)]
         
         if missing_vars:

@@ -3,15 +3,15 @@ import keyboard
 from rich import print
 from azure_speech_to_text import SpeechToTextManager
 from openai_chat import OpenAiManager
-from eleven_labs import ElevenLabsManager
+from espeak_tts import EspeakTTSManager
 from obs_websockets import OBSWebsocketsManager
 from audio_player import AudioManager
 
-ELEVENLABS_VOICE = "Pointboat" # Replace this with the name of whatever voice you have created on Elevenlabs
+ESPEAK_VOICE = "default"  # Using default espeak voice
 
 BACKUP_FILE = "ChatHistoryBackup.txt"
 
-elevenlabs_manager = ElevenLabsManager()
+tts_manager = EspeakTTSManager()
 obswebsockets_manager = OBSWebsocketsManager()
 speechtotext_manager = SpeechToTextManager()
 openai_manager = OpenAiManager()
@@ -64,14 +64,17 @@ while True:
     with open(BACKUP_FILE, "w") as file:
         file.write(str(openai_manager.chat_history))
 
-    # Send it to 11Labs to turn into cool audio
-    elevenlabs_output = elevenlabs_manager.text_to_audio(openai_result, ELEVENLABS_VOICE, False)
+    # Send it to ESpeak to turn into cool audio
+    tts_output = tts_manager.text_to_audio(openai_result, ESPEAK_VOICE, False)
 
     # Enable the picture of Pajama Sam in OBS
     obswebsockets_manager.set_source_visibility("*** Mid Monitor", "Pajama Sam", True)
 
-    # Play the mp3 file
-    audio_manager.play_audio(elevenlabs_output, True, True, True)
+    # Play the audio file
+    if tts_output:
+        audio_manager.play_audio(tts_output, True, True, True)
+    else:
+        print("[red]Failed to generate TTS audio[/red]")
 
     # Disable Pajama Sam pic in OBS
     obswebsockets_manager.set_source_visibility("*** Mid Monitor", "Pajama Sam", False)

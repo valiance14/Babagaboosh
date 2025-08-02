@@ -20,8 +20,8 @@ echo "This script will help you set up the required environment variables."
 echo "You'll need API keys from:"
 echo "  • Discord Developer Portal (Bot Token)"
 echo "  • Microsoft Azure (Speech Services)"
-echo "  • ElevenLabs (Voice Synthesis)"
 echo "  • OpenAI (GPT API)"
+echo "Note: This app now uses free ESpeak TTS, so no paid TTS service is required!"
 echo ""
 
 # Discord Bot Token
@@ -64,24 +64,6 @@ fi
 
 echo "✅ Azure Speech Services configured!"
 
-# ElevenLabs
-echo ""
-echo "🎵 ELEVENLABS SETUP"
-echo "1. Go to https://elevenlabs.io"
-echo "2. Create an account and get your API key"
-echo "3. Create a voice (or use a default one)"
-echo ""
-read -p "Enter your ElevenLabs API Key: " elevenlabs_key
-
-if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
-    setx ELEVENLABS_API_KEY "$elevenlabs_key"
-else
-    export ELEVENLABS_API_KEY="$elevenlabs_key"
-    echo "export ELEVENLABS_API_KEY=\"$elevenlabs_key\"" >> ~/.bashrc
-fi
-
-echo "✅ ElevenLabs configured!"
-
 # OpenAI
 echo ""
 echo "🧠 OPENAI SETUP"
@@ -105,10 +87,11 @@ echo "🎉 Environment setup complete!"
 echo ""
 echo "📋 Next steps:"
 echo "1. Restart your terminal to load new environment variables"
-echo "2. Install FFmpeg for voice support:"
-echo "   • Windows: Download from https://ffmpeg.org/download.html"
-echo "   • Linux: sudo apt install ffmpeg"
-echo "   • macOS: brew install ffmpeg"
+echo "2. Install system dependencies:"
+echo "   • ESpeak TTS: sudo apt install espeak espeak-data (Linux)"
+echo "   • FFmpeg for Discord voice: sudo apt install ffmpeg (Linux)"
+echo "   • Windows users: Download FFmpeg from https://ffmpeg.org/download.html"
+echo "   • macOS users: brew install espeak ffmpeg"
 echo "3. Set up your Discord bot permissions and invite it to a server"
 echo "4. Run the bot: python discord_main.py"
 echo ""
