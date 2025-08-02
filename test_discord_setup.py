@@ -71,8 +71,8 @@ def main():
         print("🎉 All tests passed! Discord bot is ready to run.")
         print("\n📋 Next steps:")
         print("1. Set up your Discord bot token: DISCORD_BOT_TOKEN")
-        print("2. Set up API keys: AZURE_TTS_KEY, AZURE_TTS_REGION, OPENAI_API_KEY")
-        print("3. Install system dependencies: espeak, espeak-data, ffmpeg")
+        print("2. Set up API key: OPENAI_API_KEY")
+        print("3. Install system dependencies: espeak, espeak-data, ffmpeg, portaudio19-dev")
         print("4. Run: python discord_main.py")
         return 0
     else:
